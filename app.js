@@ -4,6 +4,7 @@ const app = express()
 const cors = require('cors');
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
+const expressValidator = require('express-validator')
 const mongoose = require('mongoose')
 
 const dotenv = require('dotenv')
@@ -24,6 +25,7 @@ const taskRoutes = require('./routes/tasks')
 // middleware
 app.use(morgan("dev"))
 app.use(bodyParser.json())
+app.use(expressValidator())
 app.use(cors({
   origin: "http://localhost:3000"
 }))
