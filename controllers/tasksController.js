@@ -1,7 +1,11 @@
 const Task = require('../models/task')
 
 const getTasks = (req, res) => {
-    res.send("you GET someee /tasks!")
+    const tasks = Task.find()
+        .then(tasks => {
+            res.json({ tasks })
+    })
+        .catch(err => console.log(err))
 }
 
 const createTask = (req, res) => {
@@ -14,7 +18,7 @@ const createTask = (req, res) => {
                 error: err
             })
         }
-        res.status(200).json({
+        res.json({
             post: result
         })
     })
