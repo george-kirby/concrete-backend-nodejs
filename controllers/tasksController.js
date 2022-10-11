@@ -18,10 +18,15 @@ const getTask = (req, res) => {
         .catch(err => console.log(err))
 }
 
-const createTask = (req, res) => {
-    const task = new Task(req.body)
+const createTask = (req, res) => { 
+    const configuredReqBody = {
+        title: req.body.task.title,
+        steps: req.body.task.incomplete_steps
+    }
+    const task = new Task(configuredReqBody)
     console.log("CREATING TASK:", task)
     console.log("REQ BODY:", req.body)
+    console.log("CONFIGURED REQ BODY:", configuredReqBody)
     task.save((err, result) => {
         if (err) {
             return res.status(400).json({
