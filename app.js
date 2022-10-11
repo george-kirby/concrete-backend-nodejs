@@ -1,18 +1,18 @@
 const express = require('express')
-const cors = require('cors');
 const app = express()
 
+const cors = require('cors');
+const morgan = require('morgan')
+
+const { postTasks } = require('./routes/post')
+
+app.use(morgan("dev"))
+
 app.use(cors({
-  origin: "http://localhost:3001"
+  origin: "http://localhost:3000"
 }))
 
-app.get('/tasks', (req, res) => {
-  res.send("you GET someee /tasks!")
-})
-
-app.post('/tasks', (req, res) => {
-  res.send("you did it!")
-})
+app.post("/tasks", postTasks)
 
 const port = 8080
 app.listen(port, () => {
