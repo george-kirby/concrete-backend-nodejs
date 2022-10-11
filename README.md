@@ -12,10 +12,18 @@ Start server with hot update
 
 **INTRO**
 
-A NodeJS backend for the Concrete app. Built using Express for handling routes. 
+A NodeJS backend for the Concrete app. Built using Express for handling routes, and MongoDB for database. 
 
-Works with concrete-frontent (built in React).
+Works with concrete-frontend (built in React).
 
+**KEY DEPENDENCIES**
+
+express - deals with routes
+mongoose - connects to MongoDB database
+morgan - console-logs request info (tytpe, path, status code etc)
+body-parser - parses JSON
+expressValidator - validates inputs
+cors - helps with CORS
 
 **REFERENCE**
 
