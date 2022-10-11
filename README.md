@@ -1,5 +1,9 @@
 **QUICK START**
 
+install packages
+
+>npm i
+
 Start server with hot update
 (still requires page reload, but not manually restarting server)
 
