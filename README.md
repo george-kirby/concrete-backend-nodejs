@@ -20,7 +20,7 @@ Works with concrete-frontend (built in React).
 
 express - deals with routes
 mongoose - connects to MongoDB database
-morgan - console-logs request info (tytpe, path, status code etc)
+morgan - console-logs request info (type, path, status code etc)
 body-parser - parses JSON
 expressValidator - validates inputs
 cors - helps with CORS

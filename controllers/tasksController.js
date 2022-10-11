@@ -1,10 +1,19 @@
 const Task = require('../models/task')
 
-const getTasks = (req, res) => {
+const getTasksIndex = (req, res) => {
     const tasks = Task.find()
         .select("_id title steps")
         .then(tasks => {
             res.json({ tasks })
+    })
+        .catch(err => console.log(err))
+}
+
+const getTask = (req, res) => {
+    const task = Task.findById(req.params.id)
+        .select("_id title steps")
+        .then(task => {
+            res.json({ task })
     })
         .catch(err => console.log(err))
 }
@@ -26,6 +35,7 @@ const createTask = (req, res) => {
 }
 
 module.exports = {
-    getTasks,
+    getTasksIndex,
+    getTask,
     createTask
 }
