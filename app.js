@@ -14,4 +14,7 @@ app.post('/tasks', (req, res) => {
   res.send("you did it!")
 })
 
-app.listen(3000)
+const port = 8080
+app.listen(port, () => {
+  console.log(`NodeJS API is listening on port ${port}`)
+})
