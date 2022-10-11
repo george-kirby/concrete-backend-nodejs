@@ -2,6 +2,7 @@ const Task = require('../models/task')
 
 const getTasks = (req, res) => {
     const tasks = Task.find()
+        .select("_id title steps")
         .then(tasks => {
             res.json({ tasks })
     })
