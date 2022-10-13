@@ -34,7 +34,7 @@ const createTask = (req, res) => {
             })
         }
         res.json({
-            post: result
+            newTask: result
         })
     })
 }
