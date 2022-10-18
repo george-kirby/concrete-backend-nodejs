@@ -1,5 +1,13 @@
 const User = require('../models/user')
 
+const getUsersIndex = (req, res) => {
+    User.find()
+        .then(users => {
+            res.json({ users })
+    })
+        .catch(err => console.log(err))
+}
+
 const createUser = (req, res) => { 
     const { email, password } = req.body.user
     const configuredReqBody = { email, password }
@@ -20,5 +28,6 @@ const createUser = (req, res) => {
 }
 
 module.exports = {
+    getUsersIndex,
     createUser
 }
