@@ -22,6 +22,7 @@ mongoose.connection.on('error', err => {
 // bring in routes
 const userRoutes = require('./routes/users')
 const taskRoutes = require('./routes/tasks')
+const loginRoutes = require('./routes/login')
 
 // middleware
 app.use(morgan("dev"))
@@ -34,6 +35,7 @@ app.use(cors({
 // routes
 app.use("/tasks", taskRoutes)
 app.use("/users", userRoutes)
+app.use("/login", loginRoutes)
 
 const port = process.env.PORT || 8080
 app.listen(port, () => {
