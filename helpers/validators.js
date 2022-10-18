@@ -1,8 +1,6 @@
 const validateCreateTask = (req, res, next) => {
-    console.log("req.body")
-    console.log(req.body)
     req.check('task.title', "Write a title").notEmpty()
-    req.check("task.incomplete_steps", "Add at least one step").isArray({min: 1})
+    req.check("task.incompleteSteps", "Add at least one step").isArray({min: 1})
 
     const errors = req.validationErrors()
     if (errors) {

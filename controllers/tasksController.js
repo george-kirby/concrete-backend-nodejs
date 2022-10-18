@@ -1,8 +1,9 @@
 const Task = require('../models/task')
+const { taskSelector } = require('../helpers/selectors')
 
 const getTasksIndex = (req, res) => {
-    const tasks = Task.find()
-        .select("_id title steps")
+    Task.find()
+        .select(taskSelector)
         .then(tasks => {
             res.json({ tasks })
     })
@@ -11,31 +12,22 @@ const getTasksIndex = (req, res) => {
 
 const getTask = (req, res) => {
     const task = Task.findById(req.params.id)
-        .select("_id title steps")
+        .select(taskSelector)
         .then(task => {
             res.json({ task })
     })
         .catch(err => console.log(err))
 }
 
-const createTask = (req, res) => { 
-    const configuredReqBody = {
-        title: req.body.task.title,
-        steps: req.body.task.incomplete_steps
-    }
-    const task = new Task(configuredReqBody)
-    console.log("CREATING TASK:", task)
-    console.log("REQ BODY:", req.body)
-    console.log("CONFIGURED REQ BODY:", configuredReqBody)
+const createTask = (request, res) => {
+    const task = new Task(request.body.task)
     task.save((err, result) => {
         if (err) {
             return res.status(400).json({
                 error: err
             })
         }
-        res.json({
-            newTask: result
-        })
+        res.json(result)
     })
 }
 
