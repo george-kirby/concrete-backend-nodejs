@@ -28,17 +28,22 @@ const createTask = (request, response) => {
 }
 
 const patchTask = (request, response) => {
-    console.log("PatchTask is running")
-    console.log('request.body')
-    console.log(request.body)
-    const task = Task.findByIdAndUpdate(request.params.id, request.body.task, { new: true },
+    Task.findByIdAndUpdate(request.params.id, request.body.task, { new: true },
         (error, result) => {
             if (error) {
-                console.log('error')
-                console.log(error)
                 response.json(error)
             } else {
-                console.log(result)
+                response.json(result)
+            }
+    })
+}
+
+const deleteTask = (request, response) => {
+    Task.deleteOne({ _id: request.params.id },
+        (error, result) => {
+            if (error) {
+                response.json(error)
+            } else {
                 response.json(result)
             }
     })
@@ -48,5 +53,6 @@ module.exports = {
     getTasksIndex,
     getTask,
     createTask,
-    patchTask
+    patchTask,
+    deleteTask
 }
