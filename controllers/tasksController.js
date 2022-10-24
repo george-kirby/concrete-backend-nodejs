@@ -28,20 +28,20 @@ const createTask = (request, response) => {
 }
 
 const patchTask = (request, response) => {
+    console.log("PatchTask is running")
+    console.log('request.body')
     console.log(request.body)
-    // find task using task._id === request.params.id
-    const task = Task.findByIdAndUpdate(request.params.id, request.body, 
+    const task = Task.findByIdAndUpdate(request.params.id, request.body.task, { new: true },
         (error, result) => {
             if (error) {
+                console.log('error')
                 console.log(error)
+                response.json(error)
             } else {
-                console.log("updated task:" + result)
+                console.log(result)
+                response.json(result)
             }
     })
-    // update with new data - request.body
-    // save
-    // return saved task (or error) to frontend
-    response.json("patchTask was reached")
 }
 
 module.exports = {
