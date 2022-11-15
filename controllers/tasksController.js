@@ -1,46 +1,61 @@
 const Task = require('../models/task')
+const { taskSelector } = require('../helpers/selectors')
 
-const getTasksIndex = (req, res) => {
-    const tasks = Task.find()
-        .select("_id title steps")
+const getTasksIndex = (request, response) => {
+    Task.find()
+        .select(taskSelector)
         .then(tasks => {
-            res.json({ tasks })
+            response.json({ tasks })
     })
-        .catch(err => console.log(err))
+        .catch(error => console.log(error))
 }
 
-const getTask = (req, res) => {
-    const task = Task.findById(req.params.id)
-        .select("_id title steps")
+const getTask = (request, response) => {
+    const task = Task.findById(request.params.id)
+        .select(taskSelector)
         .then(task => {
-            res.json({ task })
+            response.json({ task })
     })
-        .catch(err => console.log(err))
+        .catch(error => console.log(error))
 }
 
-const createTask = (req, res) => { 
-    const configuredReqBody = {
-        title: req.body.task.title,
-        steps: req.body.task.incomplete_steps
-    }
-    const task = new Task(configuredReqBody)
-    console.log("CREATING TASK:", task)
-    console.log("REQ BODY:", req.body)
-    console.log("CONFIGURED REQ BODY:", configuredReqBody)
-    task.save((err, result) => {
-        if (err) {
-            return res.status(400).json({
-                error: err
-            })
+const createTask = (request, response) => {
+    const task = new Task(request.body.task)
+    task.save((error, result) => {
+        if (error) { 
+            response.status(400).json({error}) 
+        } else {
+            response.json(result)
         }
-        res.json({
-            post: result
-        })
+    })
+}
+
+const patchTask = (request, response) => {
+    Task.findByIdAndUpdate(request.params.id, request.body.task, { new: true },
+        (error, result) => {
+            if (error) {
+                response.status(400).json(error)
+            } else {
+                response.json(result)
+            }
+    })
+}
+
+const deleteTask = (request, response) => {
+    Task.deleteOne({ _id: request.params.id },
+        (error, result) => {
+            if (error) {
+                response.status(400).json(error)
+            } else {
+                response.json(result)
+            }
     })
 }
 
 module.exports = {
     getTasksIndex,
     getTask,
-    createTask
+    createTask,
+    patchTask,
+    deleteTask
 }
