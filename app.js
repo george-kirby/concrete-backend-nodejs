@@ -43,6 +43,10 @@ app.use((request, response, next) => {
   }
 })
 
+app.use(cors({
+  origin: "http://localhost:3000"
+}))
+
 // const origin = "http://localhost:3000"
 const origin = "*"
 // const corsOptions = {
