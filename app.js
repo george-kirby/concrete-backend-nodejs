@@ -30,21 +30,27 @@ app.use(bodyParser.json())
 app.use(expressValidator())
 // app.use(function to check if request has valid authorisation header)
 // If good, set global variable currentUser
-// Else, return ?401 with error message
 app.use((request, response, next) => {
-  const authHeader = request.headers["Authorization"] || request.headers["Authorisation"] || request.headers["authorization"] || request.headers["authorisation"]
-  authHeader === "letMeIn" ?
-    next() :
+  // const token = request.headers["Authorization"] || request.headers["Authorisation"] || request.headers["authorization"] || request.headers["authorisation"]
+  // TODO check for proper header content
+  if (true) {
+  // if (token === "keepMeLoggedInPls") {
+    next()
+  } else {
+    // if POST /login or POST /users { next() } else 401
+    // OR IMITATE RAILS
     response.status(401).json("Unauthorized")
+  }
 })
 
-const origin = "http://localhost:3000"
-const corsOptions = {
-  origin,
-  optionsSuccessStatus: 200
-}
+// const origin = "http://localhost:3000"
+const origin = "*"
+// const corsOptions = {
+//   origin,
+//   optionsSuccessStatus: 200
+// }
 
-app.options(origin, cors(corsOptions))
+// app.options(origin, cors(corsOptions))
 
 // routes
 app.use("/tasks", taskRoutes)
