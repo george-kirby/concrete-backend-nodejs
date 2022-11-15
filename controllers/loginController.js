@@ -14,18 +14,18 @@ const processLoginAttempt = async (request, response) => {
         const user = matchingUsers[0]
         const userCoreInfo = JSON.parse(JSON.stringify(user))
         const tasks = await getUserTasks(userCoreInfo._id)
+        // TODO don't sent password (unless encrypted?)
         response.json({...userCoreInfo, tasks})
     } else {
         response.json({ errors: ["Login credentials failed. Please try again."] })
     }
 
-    // ERROR HANDLING
+    // TODO error handling
 
 }
 
 const getUserTasks = async (userId) => {
-    const tasks = await Task.find({ userId })
-        .select(taskSelector)
+    const tasks = await Task.find({ userId }).select(taskSelector)
     return tasks
 }
 
