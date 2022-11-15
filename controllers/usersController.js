@@ -8,22 +8,18 @@ const getUsersIndex = (req, res) => {
         .catch(err => console.log(err))
 }
 
-const createUser = (req, res) => { 
-    const { email, password } = req.body.user
-    const configuredReqBody = { email, password }
-    const user = new User(configuredReqBody)
+const createUser = (request, response) => { 
+    const { email, password } = request.body.user
+    const configuredRequestBody = { email, password }
+    const user = new User(configuredRequestBody)
     console.log("CREATING USER:", user)
-    console.log("REQ BODY:", req.body)
-    console.log("CONFIGURED REQ BODY:", configuredReqBody)
-    user.save((err, result) => {
-        if (err) {
-            return res.status(400).json({
-                error: err
-            })
+    user.save((error, result) => {
+        if (error) {
+            response.status(400).json({ error })
+        } else {
+            // TODO don't sent password (unless encrypted?)
+            response.json({ newUser: result })
         }
-        res.json({
-            newUser: result
-        })
     })
 }
 
